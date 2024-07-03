@@ -1,27 +1,49 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import Gender from "./Gender";
 import "./signup.css";
+import useSignUp from "../../hooks/useSignUp.js";
 
-const SignUp = ({
-  fullName,
-  setFullName,
-  email,
-  setEmail,
-  password,
-  setPassword,
-  confirmPassword,
-  setConfirmPassword,
-  gender,
-  setGender,
-  error,
-  handleSignup,
-}) => {
+const SignUp = () => {
+
+  const [inputs, setInputs] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    gender: "",
+  });
+
+ const {signup, loading} = useSignUp()
+
+  // hide show password 
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  // gender check box
+  const handleGender = (gender) => {
+    setInputs({...inputs, gender });
+  };
+
+  // clearing form after submit
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    console.log('Submitting signup data:', inputs);
+    await signup(inputs);
+
+    setInputs({
+      fullName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      gender: "",
+    });
+  };
+  
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen min-w-96 mx-auto">
@@ -46,8 +68,8 @@ const SignUp = ({
               type="text"
               placeholder="Enter your full name"
               className="w-full input input-bordered h-10 bg-gray-300 text-black placeholder:text-gray-600"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              value={inputs.fullName}
+              onChange={(e) => setInputs({...inputs, fullName : e.target.value})}
             />
           </div>
 
@@ -61,8 +83,8 @@ const SignUp = ({
               type="email"
               placeholder="Enter your email"
               className="w-full input input-bordered h-10 bg-gray-300 text-black placeholder:text-gray-600"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={inputs.email}
+              onChange={(e) => setInputs({...inputs, email : e.target.value})}
             />
           </div>
 
@@ -76,8 +98,8 @@ const SignUp = ({
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={inputs.password}
+                onChange={(e) => setInputs({...inputs, password : e.target.value})}
                 placeholder="Enter your password"
                 className="w-full input input-bordered h-10 bg-gray-300 text-black placeholder:text-gray-600 pr-10"
               />
@@ -102,22 +124,22 @@ const SignUp = ({
                 type="password"
                 placeholder="Confirm password"
                 className="w-full input input-bordered h-10 bg-gray-300 text-black placeholder:text-gray-600 pr-10"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={inputs.confirmPassword}
+                onChange={(e) => setInputs({...inputs, confirmPassword : e.target.value})}
               />
             </div>
           </div>
 
-          <Gender gender={gender} setGender={setGender} />
+          <Gender onCheckboxChange={handleGender} selectedGender={inputs.gender} />
 
-          <a
-            href="/Login"
+          <Link
+            to={"/login"}
             className="flex text-sm hover:underline flex-col items-center justify-center hover:text-blue-500 mt-3 text-white"
           >
             Already have an account? {"Login"}
-          </a>
+          </Link>
 
-          {error && <p className="error">{error}</p>}
+          {/* {error && <p className="error">{error}</p>} */}
 
           <div>
             <button

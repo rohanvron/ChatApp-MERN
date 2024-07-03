@@ -5,15 +5,18 @@ import sendVerificationEmail from "../utils/sendVerificationEmail.js";
 
 export const signup = async (req, res) => {
   try {
+    console.log("Received signup request:", req.body);
     const { fullName, email, password, confirmPassword, gender } = req.body;
 
     // Email validation
+    console.log("Validating email...");
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ error: "Invalid email format" });
     }
 
     // Password validation
+    console.log("Validating password...");
     if (password.length < 6) {
       return res.status(400).json({ error: "Password must be at least 6 characters long" });
     }
@@ -23,6 +26,7 @@ export const signup = async (req, res) => {
     }
 
     // Check if user already exists
+    console.log("Checking for existing user...");
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ error: "User already exists" });
@@ -45,14 +49,20 @@ export const signup = async (req, res) => {
     });
 
     await newUser.save();
-
-    // Send the verification email
     await sendVerificationEmail(email, verificationCode);
 
-    res.status(201).json({ message: "User created successfully. Please verify your email." });
+    res.status(201).json({ 
+      message: "User created successfully. Please verify your email.", 
+      userId: newUser._id,
+      email: newUser.email
+    });
+
   } catch (error) {
-    console.log("Error in signup controller", error.message);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error in signup controller:", error);
+    if (error.code === 11000) {
+      return res.status(400).json({ error: "Email already exists" });
+    }
+    res.status(500).json({ error: "Internal Server Error", details: error.message });
   }
 };
 
@@ -101,9 +111,9 @@ export const logout = (req, res) => {
 
 export const verifyEmail = async (req, res) => {
   try {
-    const { email, verificationCode } = req.body;
+    const { userId, verificationCode } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -117,7 +127,7 @@ export const verifyEmail = async (req, res) => {
     user.verificationCode = undefined;
     await user.save();
 
-    res.status(200).json({ message: "Email verified successfully" });
+    res.status(200).json({ verified: true, message: "Email verified successfully" });
   } catch (error) {
     console.log("Error in verifyEmail controller", error.message);
     res.status(500).json({ error: "Internal Server Error" });

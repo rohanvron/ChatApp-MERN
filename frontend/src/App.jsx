@@ -1,29 +1,27 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SignUp from './pages/signup/SignUp';
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/home/Home';
 import Login from './pages/login/Login';
+import SignUp from './pages/signup/SignUp';
 import VerificationPage from './pages/verification/VerificationPage';
 import ForgetPasswordPage from './pages/forgetPassword/ForgetPasswordPage';
 import ForgetPasswordVerifyPage from './pages/forgetPasswordVerify/ForgetPasswordVerifyPage';
 import ChangePasswordPage from './pages/changePassword/ChangePasswordPage';
-import Home from './pages/home/Home';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
-  const basename = process.env.NODE_ENV === 'production' ? '/chat-app-mern' : '';
-  const basePath = process.env.NODE_ENV === 'production' ? '/chat-app-mern' : '';
-
   return (
-    <Router basename={basename}>
+    <div>
       <Routes>
-        <Route path={`${basePath}/`} element={<Login />} />
-        <Route path={`${basePath}/signup`} element={<SignUp />} />
-        <Route path={`${basePath}/signup/verify-email`} element={<VerificationPage />} />
-        <Route path={`${basePath}/login`} element={<Login />} />
-        <Route path={`${basePath}/home`} element={<Home />} />
-        <Route path={`${basePath}/forget-password`} element={<ForgetPasswordPage />} />
-        <Route path={`${basePath}/forget-password-verify`} element={<ForgetPasswordVerifyPage />} />
-        <Route path={`${basePath}/change-password`} element={<ChangePasswordPage />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='/signup/verify-email' element={<VerificationPage />} />
+        <Route path='/forget-password' element={<ForgetPasswordPage />} />
+        <Route path='/forget-password-verify' element={<ForgetPasswordVerifyPage />} />
+        <Route path='/change-password' element={<ChangePasswordPage />} />
       </Routes>
-    </Router>
+      <Toaster/>
+    </div>
   );
 }
 

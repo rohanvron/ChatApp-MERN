@@ -35,7 +35,7 @@ const WelcomeMessage = () => {
 
         <p>Welcome !! Rohan Verma 💙</p>
         <p>Select a chat to start messaging!</p>
-        <LuMessagesSquare className="text-3xl md:text-6xl text-center mt-4" />
+        <LuMessagesSquare className="text-6xl md:text-6xl text-center mt-4" />
       </div>
     </div>
   );
