@@ -9,7 +9,7 @@ router.post("/verify-email", verifyEmail);
 router.post("/resend-verification", resendVerificationCode);
 
 router.post("/forget-password", forgetPassword);
-router.post("/verify-forget-password", verifyForgetPassword);
+router.post("/forget-password-verify", verifyForgetPassword);
 router.post("/change-password", changePassword);
 
 router.post("/login", login);

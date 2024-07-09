@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../context/AuthContext'; // Add this import
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { setAuthUser } = useAuthContext(); // Add this line
 
   const login = async (email, password) => {
     setLoading(true);
@@ -23,7 +25,8 @@ export const useLogin = () => {
         throw new Error(data.error || 'Login failed');
       }
 
-      localStorage.setItem('user', JSON.stringify(data));
+      localStorage.setItem('chat-user', JSON.stringify(data));
+      setAuthUser(data); // update the auth context
       toast.success('Logged in successfully');
       navigate('/'); // Redirect to home page
     } catch (error) {

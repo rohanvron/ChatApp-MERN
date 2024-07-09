@@ -51,7 +51,12 @@ const useSignUp = () => {
       
       // Redirect to verification page
       navigate('/signup/verify-email', { 
-        state: { userId: responseData.userId, email: responseData.email } 
+        state: { 
+          userId: responseData.userId, 
+          email: responseData.email,
+          fullName: responseData.fullName,
+          profilePic: responseData.profilePic
+        } 
       });
 
       toast.success("Signup successful. Please check your email for verification.");
