@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { useLogin } from "../../hooks/useLogin";
+import { toast } from "react-hot-toast";
 import "./login.css";
 
 const Login = () => {

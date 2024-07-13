@@ -134,19 +134,20 @@ const SignUp = () => {
 
           <Link
             to={"/login"}
-            className="flex text-sm hover:underline flex-col items-center justify-center hover:text-blue-500 mt-3 text-white"
+            className="flex text-sm hover:underline flex-col items-center justify-center
+                     hover:text-blue-500 mt-3 text-white"
           >
             Already have an account? {"Login"}
           </Link>
 
-          {/* {error && <p className="error">{error}</p>} */}
-
           <div>
             <button
               type="submit"
-              className="w-full btn hover:bg-gradient-to-bl bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-2 px-4 border border-blue-500 btn-sm mt-6 mb-2 h-10"
-            >
-              SignUp
+              className="w-full btn hover:bg-gradient-to-bl bg-gradient-to-r
+                       from-cyan-500 to-blue-500 text-white py-2 px-4 border
+                       border-blue-500 btn-sm mt-6 mb-2 h-10"
+              disabled={loading}>
+              {loading ? <span className="loading loading-spinner"></span> : "Sign Up"}
             </button>
           </div>
         </form>

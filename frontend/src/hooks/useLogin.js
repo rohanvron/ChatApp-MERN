@@ -9,6 +9,10 @@ export const useLogin = () => {
   const { setAuthUser } = useAuthContext(); // Add this line
 
   const login = async (email, password) => {
+    if (!email ||!password) {
+      toast.error('Please fill all the fields');
+      return;
+    }
     setLoading(true);
     try {
       const response = await fetch('/api/auth/login', {
@@ -27,8 +31,10 @@ export const useLogin = () => {
 
       localStorage.setItem('chat-user', JSON.stringify(data));
       setAuthUser(data); // update the auth context
+
       toast.success('Logged in successfully');
       navigate('/'); // Redirect to home page
+
     } catch (error) {
       toast.error(error.message);
       return { error: error.message };

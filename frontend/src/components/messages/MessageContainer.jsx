@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Messages from "./Messages.jsx";
 import MessageInput from "./MessageInput.jsx";
 import { LuMessagesSquare  } from "react-icons/lu";
+import useConversation from "../../store/useConversation.js";
 
 const MessageContainer = () => {
-  const welcomeMsg = true;
+  const {selectedConversation, setSelectedConversation} = useConversation();
 
+  //cleans up the selected conversation when the component unmounts (when logouts)
+  useEffect(() => {
+
+      return () => {
+        setSelectedConversation(null);
+      }
+      
+  }, [setSelectedConversation])
+ 
   return (
     <div className="w-2/3 h-full flex flex-col backdrop-filter backdrop-blur-lg bg-opacity-5">
-      {welcomeMsg ? ( <WelcomeMessage />
+      {!selectedConversation ? ( <WelcomeMessage />
       ) : (
         <>
           <div className="bg-gradient-to-r from-cyan-500 to-blue-500 px-4 py-2 mb-2">
             <span className="label-text text-green-300">To:</span>{" "}
-            <span className="text-white font-semibold">Bikesh Barkane</span>
+            <span className="text-white font-semibold">{selectedConversation.fullName}</span>
           </div>
 
           <Messages />
