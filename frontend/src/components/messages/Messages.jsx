@@ -1,9 +1,12 @@
 import { useEffect, useRef } from 'react'
 import Message from './Message.jsx'
 import useGetMessages from '../../hooks/useGetMessages.js'
+import useListenMessages from '../../hooks/useListenMessages.js';
 
 const Messages = () => {
   const {messages, loading} = useGetMessages();
+  useListenMessages();
+  
   const messagesContainerRef = useRef(null);
   const isFirstRender = useRef(true);
 

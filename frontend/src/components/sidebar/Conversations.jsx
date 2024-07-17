@@ -2,26 +2,28 @@ import React from 'react'
 import Conversation from './Conversation.jsx'
 import useGetConversations from '../../hooks/useGetConversations.js'
 
-const Conversations = () => {
+const Conversations = ({ filteredConversations }) => {
   const {loading, conversations} = useGetConversations();
 
   if (loading) {
     return <span className="loading loading-spinner mx-auto"></span>;
   }
 
-  if (!Array.isArray(conversations)) {
-    console.error('Conversations is not an array:', conversations);
+  const displayConversations = filteredConversations || conversations;
+
+  if (!Array.isArray(displayConversations)) {
+    console.error('Conversations is not an array:', displayConversations);
     return <p>Error: Conversations data is not in the expected format.</p>;
   }
 
   return (
     <div className='py-2 flex flex-col overflow-auto'>
-      {conversations.length > 0 ? (
-        conversations.map((conversation, index) => (
+      {displayConversations.length > 0 ? (
+        displayConversations.map((conversation, index) => (
           <Conversation
             key={conversation._id}
             conversation={conversation}
-            lastIndex={index === conversations.length - 1}
+            lastIndex={index === displayConversations.length - 1}
           />
         ))
       ) : (
