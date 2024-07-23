@@ -11,6 +11,8 @@ import connectMongoDB from "./db/connectMongoDB.js";
 
 import { app, server } from "./socket/socket.js";
 
+import { startCleanupTask } from "./tasks/cleanupUsers.js";
+
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
@@ -65,5 +67,6 @@ app.use((err, req, res, next) => {
 
 server.listen(PORT, () => {
   connectMongoDB();
+  startCleanupTask();
   console.log(`Server running on port ${PORT}`);
 });

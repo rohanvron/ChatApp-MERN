@@ -2,12 +2,13 @@ import User from "../models/user.model.js";
 
 export const getUsersForSidebar = async (req, res) => {
 
-
   try {
+    const loggedInUserId = req.user._id;
 
-    const loggedInUserIdd = req.user._id;
-
-    const filteredUsers = await User.find({ _id: { $ne: loggedInUserIdd } }).select("-password");
+    const filteredUsers = await User.find({ 
+      _id: { $ne: loggedInUserId },
+      isVerified: true  // Only include verified users
+    }).select("-password");
 
     res.status(200).json({ filteredUsers });
 
@@ -16,3 +17,4 @@ export const getUsersForSidebar = async (req, res) => {
     res.status(500).json({ error: "internal server error" });
   }
 };
+

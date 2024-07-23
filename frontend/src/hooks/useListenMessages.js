@@ -4,21 +4,22 @@ import useConversation from '../store/useConversation';
 import notification from '../assets/notification.mp3';
 
 const useListenMessages = () => {
-    const {socket} = useSocketContext();
-    const {messages, setMessages} = useConversation();
+    const { socket } = useSocketContext();
+    const { selectedConversation, addMessage } = useConversation();
 
     useEffect(() => {
         socket?.on("newMessage", (newMessage) => {
-            const sound = new Audio(notification);
-            sound.play();
-            setMessages([...messages, newMessage]);
-        })
+            if (newMessage.senderId === selectedConversation?._id || newMessage.receiverId === selectedConversation?._id) {
+                addMessage(newMessage);
+                const sound = new Audio(notification);
+                sound.play();
+            }
+        });
 
         return () => {
             socket?.off("newMessage");
         }
-
-    }, [socket, messages, setMessages]);
+    }, [socket, selectedConversation, addMessage]);
 }
 
-export default useListenMessages
+export default useListenMessages;

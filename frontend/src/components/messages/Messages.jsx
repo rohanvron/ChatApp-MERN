@@ -2,9 +2,10 @@ import { useEffect, useRef } from 'react'
 import Message from './Message.jsx'
 import useGetMessages from '../../hooks/useGetMessages.js'
 import useListenMessages from '../../hooks/useListenMessages.js';
+import useConversation from '../../store/useConversation.js';
 
 const Messages = () => {
-  const {messages, loading} = useGetMessages();
+  const { messages, loading } = useGetMessages();
   useListenMessages();
   
   const messagesContainerRef = useRef(null);
@@ -24,7 +25,7 @@ const Messages = () => {
       className='px-4 flex-1 overflow-auto relative'
       style={{ display: 'flex', flexDirection: 'column-reverse' }}
     >
-      {!loading && messages.length > 0 && messages.slice().reverse().map((message) => (
+      {!loading && Array.isArray(messages) && messages.length > 0 && messages.slice().reverse().map((message) => (
         <Message key={message._id} message={message} />
       ))}
 
@@ -34,7 +35,7 @@ const Messages = () => {
         </div>
       )}
 
-      {!loading && messages.length === 0 && (
+      {!loading && (!messages || messages.length === 0) && (
         <div className='absolute inset-0 flex items-center justify-center'>
           <div className='text-center text-gray-500'>
             <p className='text-2xl'>No messages yet.</p>
@@ -46,4 +47,4 @@ const Messages = () => {
   )
 }
 
-export default Messages
+export default Messages;

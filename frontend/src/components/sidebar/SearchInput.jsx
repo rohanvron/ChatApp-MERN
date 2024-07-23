@@ -4,11 +4,14 @@ import useConversation from "../../store/useConversation.js";
 import useGetConversations from "../../hooks/useGetConversations.js";
 import toast from "react-hot-toast";
 import Conversation from "./Conversation.jsx";
+import { useAuthContext } from "../../context/AuthContext.jsx";
 
 const SearchInput = ({ setFilteredConversations, filteredConversations }) => {
   const [search, setSearch] = useState("");
   const { setSelectedConversation } = useConversation();
   const { conversations } = useGetConversations();
+
+  const { authUser } = useAuthContext();
 
   const handleSubmitSearch = (e) => {
     e.preventDefault();
@@ -20,7 +23,7 @@ const SearchInput = ({ setFilteredConversations, filteredConversations }) => {
       return toast.error("Search term must be at least 2 characters long");
     }
 
-    const filteredResults = conversations.filter(c => 
+    const filteredResults = conversations.filter((c) =>
       c.fullName.toLowerCase().startsWith(search.toLowerCase())
     );
 
@@ -41,18 +44,24 @@ const SearchInput = ({ setFilteredConversations, filteredConversations }) => {
     setSelectedConversation(null);
     setSearch("");
     setFilteredConversations(null);
-  };  
+  };
 
   return (
     <>
       <div className="flex items-center gap-2">
-        <button
-          onClick={handleHomeClick}
-          className="btn btn-circle hover:bg-gradient-to-bl bg-gradient-to-r from-cyan-500 to-blue-500 text-white"
+        <div className="avatar online w-[48px] h-[48px] mr-0.5">
+          <img
+            src={authUser.profilePic}
+            alt="user avatar"
+            className="rounded-full cursor-pointer border-blue-500 border-2"
+            onClick={handleHomeClick}
+          />
+        </div>
+
+        <form
+          onSubmit={handleSubmitSearch}
+          className="flex items-center gap-2 flex-1"
         >
-          <FaHome size={25} />
-        </button>
-        <form onSubmit={handleSubmitSearch} className="flex items-center gap-2 flex-1">
           <input
             value={search}
             type="text"
@@ -82,7 +91,6 @@ const SearchInput = ({ setFilteredConversations, filteredConversations }) => {
       )}
     </>
   );
-  
 };
 
 export default SearchInput;
