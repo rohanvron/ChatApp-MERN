@@ -23,8 +23,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen min-w-96 mx-auto">
-      <div className="w-96 max-w-md p-8 rounded-lg shadow-md bg-blue-300 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-5">
+    <div className="flex flex-col items-center justify-center min-h-screen min-w-96 mx-auto mobile-container">
+      <div className="w-96 max-w-md p-8 rounded-lg shadow-md bg-blue-300 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-5 mobile-form">
         <h1 className="text-2xl font-semibold text-center text-white">
           Login
           <span className="font-bold bg-gradient-to-r from-cyan-500 to-blue-500 text-transparent bg-clip-text">

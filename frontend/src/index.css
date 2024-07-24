@@ -9,21 +9,37 @@ body {
     background-position: center;
 }
 
-/* scrollbar */
+/* Mobile styles */
+@media (max-width: 388px) {
+    html, body {
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;  
+    }
 
-::-webkit-scrollbar {
-    width: 8px;
-}
+    body {
+        background-attachment: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-::-webkit-scrollbar-track {
-    background: #0ed1df;
-}
+    .mobile-container {
+        width: 100%;
+        max-width: 388px;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-::-webkit-scrollbar-thumb {
-    background: #0ed1df;
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover{
-    background: #0c8faf;
+    .mobile-form {
+        width: 100%;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        box-sizing: border-box;
+    }
 }

@@ -46,10 +46,10 @@ const SignUp = () => {
   
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen min-w-96 mx-auto">
+    <div className="flex flex-col items-center justify-center min-h-screen min-w-96 mx-auto mobile-container">
       <div
         className="w-96 max-w-md p-8 rounded-lg shadow-md bg-blue-300 bg-clip-padding 
-                      backdrop-filter backdrop-blur-lg bg-opacity-5"
+                      backdrop-filter backdrop-blur-lg bg-opacity-5 mobile-form"
       >
         <h1 className="text-2xl font-semibold text-center text-gray-300">
           SignUp
