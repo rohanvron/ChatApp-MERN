@@ -1,14 +1,12 @@
 {
-  "homepage": "https://rohanvron.github.io/chat-app-mern/",
   "name": "chatapp",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "server": "nodemon backend/server.js",
-    "build": "vite build",
+    "start": "node backend/server.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
