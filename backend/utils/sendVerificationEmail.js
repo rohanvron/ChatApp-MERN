@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
     user: process.env.BREVO_USERNAME,
     pass: process.env.BREVO_PASSWORD,
   },
-  authMethod: 'LOGIN', // 'LOGIN' authentication method because 'PLAIN' wasn't working with brevo
+  authMethod: 'LOGIN',
 });
 
 const sendVerificationEmail = async (email, verificationCode) => {

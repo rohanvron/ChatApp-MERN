@@ -7,7 +7,7 @@ export const getUsersForSidebar = async (req, res) => {
 
     const filteredUsers = await User.find({ 
       _id: { $ne: loggedInUserId },
-      isVerified: true  // Only include verified users
+      isVerified: true
     }).select("-password");
 
     res.status(200).json({ filteredUsers });

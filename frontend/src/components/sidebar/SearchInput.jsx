@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { FaSearch, FaHome } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import useConversation from "../../store/useConversation.js";
 import useGetConversations from "../../hooks/useGetConversations.js";
 import toast from "react-hot-toast";
 import Conversation from "./Conversation.jsx";
 import { useAuthContext } from "../../context/AuthContext.jsx";
 
-const SearchInput = ({ setFilteredConversations, filteredConversations }) => {
+const SearchInput = ({ setFilteredConversations, filteredConversations, onConversationSelect }) => {
   const [search, setSearch] = useState("");
   const { setSelectedConversation } = useConversation();
   const { conversations } = useGetConversations();
@@ -36,12 +36,18 @@ const SearchInput = ({ setFilteredConversations, filteredConversations }) => {
 
   const handleConversationSelect = (conversation) => {
     setSelectedConversation(conversation);
-    setSearch("");
-    setFilteredConversations(null);
+    resetSearch();
+    if (onConversationSelect) {
+      onConversationSelect(conversation);
+    }
   };
 
   const handleHomeClick = () => {
     setSelectedConversation(null);
+    resetSearch();
+  };
+
+  const resetSearch = () => {
     setSearch("");
     setFilteredConversations(null);
   };
@@ -53,7 +59,7 @@ const SearchInput = ({ setFilteredConversations, filteredConversations }) => {
           <img
             src={authUser.profilePic}
             alt="user avatar"
-            className="rounded-full cursor-pointer border-blue-500 border-2"
+            className="rounded-full cursor-pointer border-blue-500 border-2 hover:border-cyan-500"
             onClick={handleHomeClick}
           />
         </div>
@@ -84,7 +90,7 @@ const SearchInput = ({ setFilteredConversations, filteredConversations }) => {
               key={conversation._id}
               conversation={conversation}
               lastIndex={index === filteredConversations.length - 1}
-              onClick={() => handleConversationSelect(conversation)}
+              onSelect={() => handleConversationSelect(conversation)}
             />
           ))}
         </div>

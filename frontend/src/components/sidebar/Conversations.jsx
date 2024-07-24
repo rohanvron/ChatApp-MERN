@@ -1,8 +1,7 @@
-import React from 'react'
 import Conversation from './Conversation.jsx'
 import useGetConversations from '../../hooks/useGetConversations.js'
 
-const Conversations = ({ filteredConversations }) => {
+const Conversations = ({ filteredConversations, onSelect }) => {
   const {loading, conversations} = useGetConversations();
 
   if (loading) {
@@ -24,6 +23,7 @@ const Conversations = ({ filteredConversations }) => {
             key={conversation._id}
             conversation={conversation}
             lastIndex={index === displayConversations.length - 1}
+            onSelect={() => onSelect && onSelect(conversation)}
           />
         ))
       ) : (

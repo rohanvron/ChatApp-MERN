@@ -5,28 +5,24 @@ import { LuMessagesSquare  } from "react-icons/lu";
 import useConversation from "../../store/useConversation.js";
 import { useAuthContext } from "../../context/AuthContext.jsx";
 
-const MessageContainer = () => {
-  const {selectedConversation, setSelectedConversation} = useConversation();
-
-  //cleans up the selected conversation when the component unmounts (when logouts)
-  useEffect(() => {
-
-      return () => {
-        setSelectedConversation(null);
-      }
-      
-  }, [setSelectedConversation])
+const MessageContainer = ({ onBack }) => {
+  const { selectedConversation, setSelectedConversation } = useConversation();
  
-  return (
-    <div className="w-2/3 h-full flex flex-col backdrop-filter backdrop-blur-lg bg-opacity-5">
-      {!selectedConversation ? ( <WelcomeMessage />
+return (
+    <div className="w-full md:w-2/3 h-full flex flex-col backdrop-filter backdrop-blur-lg bg-opacity-5">
+      {!selectedConversation ? (
+        <WelcomeMessage />
       ) : (
         <>
-          <div className="bg-gradient-to-r from-cyan-500 to-blue-500 px-4 py-2 mb-2">
+          <div className="bg-gradient-to-r from-cyan-500 to-blue-500 px-4 py-2 mb-2 flex items-center">
+            <button onClick={onBack} className="md:hidden mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
             <span className="label-text text-green-300">To:</span>{" "}
             <span className="text-white font-semibold">{selectedConversation.fullName}</span>
           </div>
-
           <Messages />
           <MessageInput />
         </>
