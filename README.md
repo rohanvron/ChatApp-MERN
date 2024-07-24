@@ -23,11 +23,12 @@ ChatApp is a real-time messaging application built on modern web technology. It 
 * **Styling:** Tailwind CSS
 * **Email Service:** SendinBlue (Brevo)
 
-<p align="center">
-  <img width="auto" height="auto" src="./frontend/src/assets/LoginUI.PNG">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-  <img width="auto" height="auto" src="./frontend/src/assets/SignupUI.PNG">
-</p>
+<table>
+  <tr>
+    <td><img src="./frontend/src/assets/LoginUI.PNG" width=489 height=699></td>
+    <td><img src="./frontend/src/assets/SignupUI.PNG" width=489 height=699></td>
+  </tr>
+ </table>
 
 ## Key Components
 
