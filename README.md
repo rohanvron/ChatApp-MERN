@@ -25,8 +25,8 @@ ChatApp is a real-time messaging application built on modern web technology. It 
 
 <table>
   <tr>
-    <td><img src="./frontend/src/assets/LoginUI.PNG" width=489 height=699></td>
-    <td><img src="./frontend/src/assets/SignupUI.PNG" width=489 height=699></td>
+    <td><img src="./frontend/src/assets/LoginUI.PNG" width=489 height=675></td>
+    <td><img src="./frontend/src/assets/SignupUI.PNG" width=489 height=675></td>
   </tr>
  </table>
 
