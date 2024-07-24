@@ -16,7 +16,7 @@ export const SocketContextProvider = ({ children }) => {
 
     useEffect(() => {
         if(authUser) {
-            const socket = io("https://starlit-flan-dd6f25.netlify.app/", {
+            const socket = io("https://chatapp-rohan.netlify.app", {
                 query: {
                     userId: authUser.userId,
                 }
