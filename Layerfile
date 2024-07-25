@@ -1,13 +1,19 @@
 FROM vm/ubuntu:22.04
 
 # Install Node.js
-RUN curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 RUN sudo apt-get install -y nodejs
 
 # Install MongoDB
 RUN sudo apt-get update
-RUN sudo apt-get install -y mongodb
-RUN sudo systemctl start mongodb
+RUN sudo apt-get install -y gnupg
+RUN curl -fsSL https://pgp.mongodb.com/server-6.0.asc | \
+   sudo gpg -o /usr/share/keyrings/mongodb-server-6.0.gpg \
+   --dearmor
+RUN echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+RUN sudo apt-get update
+RUN sudo apt-get install -y mongodb-org
+RUN sudo systemctl start mongod
 
 # Clone your repository
 COPY . .
