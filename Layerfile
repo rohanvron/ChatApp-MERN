@@ -1,0 +1,5 @@
+FROM webapp.io/node
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN BACKGROUND npm start
