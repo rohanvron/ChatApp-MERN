@@ -19,7 +19,7 @@ RUN mkdir -p backend/public
 RUN cp -r frontend/dist/* backend/public/
 
 # Expose the port the app runs on
-EXPOSE 5000
+EXPOSE WEBSITE http://localhost:5000
 
 # Start the backend server
 CMD ["node", "backend/server.js"]
