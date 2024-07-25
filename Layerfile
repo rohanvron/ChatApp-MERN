@@ -22,4 +22,4 @@ RUN cp -r frontend/dist/* backend/public/
 EXPOSE 5000
 
 # Start the backend server
-CMD ["npm", "start"]
+CMD ["node", "backend/server.js"]
