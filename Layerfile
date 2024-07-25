@@ -1,25 +1,6 @@
-# Use the Node.js image from webapp.io
-FROM webapp.io/node
+FROM webapp.io/node:16
 
-# Set the working directory to /app
-WORKDIR /app
-
-# Copy the whole project to the container
-COPY . .
-
-# Install backend dependencies
+COPY / /root
 RUN npm install
-
-# Install frontend dependencies and build the frontend
-RUN npm install --prefix frontend
-RUN npm run build --prefix frontend
-
-# Move the frontend build files to the backend's public directory
-RUN mkdir -p backend/public
-RUN cp -r frontend/dist/* backend/public/
-
-# Expose the port the app runs on
-EXPOSE 5000
-
-# Start the backend server
-CMD ["node", "backend/server.js"]
+RUN BACKGROUND npm run start
+EXPOSE WEBSITE localhost:5000
