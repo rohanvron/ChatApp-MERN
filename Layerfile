@@ -1,4 +1,4 @@
-FROM webapp.io/node
+FROM node:18
 
 # Set the working directory to /app
 WORKDIR /app
