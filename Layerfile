@@ -1,24 +1,25 @@
-#Use an Ubuntu 18.04 base for our staging server
-FROM vm/ubuntu:18.04
+# Use the Node.js image from webapp.io
+FROM webapp.io/node
 
-# To note: Layerfiles create entire VMs, *not* containers!
+# Set the working directory to /app
+WORKDIR /app
 
-# Install python
-RUN apt-get update && apt-get install python3
-
-# Create some files
-RUN echo '<b>some html</b>' > hello.html
-RUN echo '<b>another file</b>' > another.html
-
-# You could also install & start a database:
-# RUN apt-get update && apt-get install postgresql
-
-# This line copies the repository to /root in the runner
+# Copy the whole project to the container
 COPY . .
-RUN ls
 
-# Expose the webserver in the staging server as a secure link.
-# Whenever someone clicks the link, we'll load this staging server and forward
-# their requests to it.
-RUN BACKGROUND python3 -m http.server 80
-EXPOSE WEBSITE http://localhost:80
+# Install backend dependencies
+RUN npm install
+
+# Install frontend dependencies and build the frontend
+RUN npm install --prefix frontend
+RUN npm run build --prefix frontend
+
+# Move the frontend build files to the backend's public directory
+RUN mkdir -p backend/public
+RUN cp -r frontend/dist/* backend/public/
+
+# Expose the port the app runs on
+EXPOSE 5000
+
+# Start the backend server
+CMD ["node", "backend/server.js"]
