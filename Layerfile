@@ -1,3 +1,4 @@
+# Use the official Node.js image from Docker Hub
 FROM node:18
 
 # Set the working directory to /app
@@ -17,5 +18,8 @@ RUN npm run build --prefix frontend
 RUN mkdir -p backend/public
 RUN cp -r frontend/dist/* backend/public/
 
-RUN BACKGROUND npm start
-EXPOSE WEBSITE http://localhost:8000
+# Expose the port the app runs on
+EXPOSE 5000
+
+# Start the backend server
+CMD ["npm", "start"]
