@@ -15,20 +15,22 @@ RUN sudo apt-get update
 RUN sudo apt-get install -y mongodb-org
 RUN sudo systemctl start mongod
 
-# Clone your repository
-COPY . .
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
-RUN cd frontend && npm install
 
-# Build the frontend
-RUN cd frontend && npm run build
+# Copy the rest of the application
+COPY . .
 
-# Move the frontend build to the backend public directory
-RUN mkdir -p backend/public
-RUN cp -r frontend/dist/* backend/public/
+# Install frontend dependencies and build
+RUN npm install --prefix frontend
+RUN npm run build --prefix frontend
 
 # Start the server
-RUN BACKGROUND node backend/server.js
+RUN BACKGROUND npm start
 EXPOSE WEBSITE http://localhost:5000
