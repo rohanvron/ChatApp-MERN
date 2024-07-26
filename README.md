@@ -3,7 +3,7 @@
 ChatApp is a real-time messaging application built on modern web technology. It provides a seamless and secure communication experience with features such as user authentication, email verification, password recovery, and real-time chat functionality
 
 <p align="center">
-  <img  src="./frontend/src/assets/ChatUI.PNG">
+  <img src="./frontend/src/assets/ChatUI.PNG">
 </p>
 
 ## Features:
@@ -23,13 +23,9 @@ ChatApp is a real-time messaging application built on modern web technology. It 
 * **Styling:** Tailwind CSS
 * **Email Service:** SendinBlue (Brevo)
 
- <p align="center">
-  <img width=489 height=699 src="./frontend/src/assets/LoginUI.PNG">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-  <img width="489" height="699" src="./frontend/src/assets/SignupUI.PNG">
+<p align="center">
+  <img src="./frontend/src/assets/Login&Signup.png">
 </p>
-
-
 
 ## Key Components
 

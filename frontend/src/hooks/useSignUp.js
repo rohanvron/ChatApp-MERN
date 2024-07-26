@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from "../context/AuthContext";
 
 const useSignUp = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const { setAuthUser } = useAuthContext();
 
   const signup = async ({
     fullName,
@@ -48,6 +51,8 @@ const useSignUp = () => {
       }
 
       console.log('Response received:', responseData);
+
+      setAuthUser(responseData);
       
       // Redirect to verification page
       navigate('/signup/verify-email', { 

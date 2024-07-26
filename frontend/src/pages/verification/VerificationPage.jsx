@@ -73,7 +73,7 @@ const VerificationPage = () => {
         localStorage.setItem("chat-user", JSON.stringify(userData));
 
         // Redirect to home page
-        navigate("/login");
+        navigate("/");
       }
     } catch (error) {
       if (error.response?.data?.error === "Verification code has expired") {
